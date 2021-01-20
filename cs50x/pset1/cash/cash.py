@@ -14,15 +14,12 @@ count = 0
 while n > 0:
     if n - QUARTERS >= 0:
         n -= QUARTERS
-        count += 1
     elif n - DIMES >= 0:
         n -= DIMES
-        count += 1
     elif n - NICKELS >= 0:
         n -= NICKELS
-        count += 1
     else:
         n -= PENNIES
-        count += 1
+    count += 1
 
 print(count)

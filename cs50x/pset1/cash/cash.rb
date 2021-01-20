@@ -17,17 +17,14 @@ count = 0
 while n > 0
     if n - QUARTERS >= 0
         n -= QUARTERS
-        count += 1
     elsif n - DIMES >= 0
         n -= DIMES
-        count += 1
     elsif n - NICKELS >= 0
         n -= NICKELS
-        count += 1
     else
         n -= PENNIES
-        count += 1
     end
+    count += 1
 end
 
 puts(count)
