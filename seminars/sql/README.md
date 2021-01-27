@@ -1,9 +1,57 @@
-## SQL
-### id
-### show_id, genre  in another table
-### show_id, name
-- show_id can repeat
-- 
+# A Taste of SQL
+## Basic control
+- sqlite3 and then .open ??.db
+- sqlite3 ??.db
+In sqlite>  state
+- .help
+can see Usage for command-lines
+- .show
+Show the current values for various settings
+- .open ?OPTIONS? ?FILE?
+Close existing database and reopen FILE
+- .headers on|off  
+Turn display of headers on or off
+
+- The same nested queries [Feedback](https://edstem.org/us/courses/2879/discussion/223184?answer=538651)
+1. Two WHERE conditions joined by an AND
+```shell
+SELECT title FROM movies 
+WHERE id IN
+( ... = "Johnny Depp"))
+AND id IN 
+( ... = "Helena Bonham Carter"));
+```
+```shell
+sqlite> SELECT title FROM movies
+   ...> WHERE id IN
+   ...> (SELECT movie_id FROM stars WHERE person_id =
+   ...> (SELECT id FROM people WHERE name = "Johnny Depp")) 
+   ...> AND id IN
+   ...> (SELECT movie_id FROM stars WHERE person_id =
+   ...> (SELECT id FROM people WHERE name = "Helena Bonham Carter"));
+```
+so you have 2 WHERE conditions joined by an AND
+with the same nested queries you are using to get the id 
+
+2. INTERSECT
+```shell
+sqlite> SELECT title FROM movies WHERE id IN
+   ...> (SELECT movie_id FROM stars WHERE person_id =
+   ...> (SELECT id FROM people WHERE name = "Johnny Depp"))
+   ...> INTERSECT
+   ...> SELECT title FROM movies WHERE id IN
+   ...> (SELECT movie_id FROM stars WHERE person_id =
+   ...> (SELECT id FROM people WHERE name = "Helena Bonham Carter"));
+Alice Through the Looking Glass
+Alice in Wonderland
+Charlie and the Chocolate Factory
+Corpse Bride
+Dark Shadows
+Sweeney Todd: The Demon Barber of Fleet Street
+```
+## course
+### EXCEL
+- Activity 1 
 Open this [spreadsheet](https://docs.google.com/spreadsheets/d/e/2PACX-1vRfpjV8pF6iNBu5xV-wnzHPXvW69wZcTxqsSnYqHx126N0bPfVhq63UtkG9mqUawB4tXneYh31xJlem/pubhtml) and use it to answer the following questions.
 1. In what year did Black Mirror first air?
 2011
@@ -27,11 +75,14 @@ Open this [spreadsheet](https://docs.google.com/spreadsheets/d/e/2PACX-1vRfpjV8p
 Friends	
 1.Go to people table search person_id 98
 98 repeat in different numbers, So we need to use SQL to solve this problem
-
 2.Then go to starts table search show_id
 3.Then Go to show table search show Tv
 
-Command line
+### SQL
+### show_id, genre  in another table
+### show_id, name
+
+- Command line
 wget https://cdn.cs50.net/2021/x/seminars/sql/shows.db   
 
 sqlite3 shows.db
@@ -87,7 +138,7 @@ SELECT * FROM shows WHERE title = "The Office";
 
 SELECT * FROM shows WHERE year > 2020;
 
-Count the number
+- Count the number
 SELECT COUNT(*) FROM shows WHERE year > 2020;
 
 SELECT * FROM shows WHERE title = "Titanic";
@@ -100,11 +151,8 @@ SELECT * FROM shows WHERE title = 'Stranger Things' AND year = 2016;
 
 SELECT genre FROM genres WHERE show_id = 4574334;
 
-
 SELECT * FROM genres WHERE show_id =
 (SELECT id FROM shows WHERE title = 'Stranger Things' AND year = 2016);
-
-
 
 SELECT * FROM shows WHERE title = "The Office" ORDER BY episodes;
 The dafult is ascending(ASC)
@@ -139,8 +187,7 @@ Brian Baumgartner
 
 - The difference between IN  and EQUAL 
 
-Activity 2
-
+- Activity 2
 Run wget https://cdn.cs50.net/2021/x/seminars/sql/shows.db
 Write a SQL query to answer each of the following questions.
 1. In what year was Jerry Seinfeld born?
@@ -204,7 +251,6 @@ sqlite3 fiftyville.db
 sqlite> SELECT * FROM crime_scene_reports LIMIT 3;
 
 
-
 Run wget https://cdn.cs50.net/2021/x/seminars/sql/fiftyville.db
 The CS50 Duck has been stolen! The town of Fiftyville has called upon you to solve the mystery of the stolen duck. Authorities believe that the thief stole the duck and then, shortly afterwards, took a flight out of town with the help of an accomplice. Your goal is to identify:
 1. Who the thief is,
@@ -250,16 +296,3 @@ id | year | month | day | hour | minute | activity | license_plate
 SELECT name FROM people WHERE license_plate IN
 (SELECT license_plate FROM courthouse_security_logs WHERE month = 7 AND day = 28
 AND hour = 10 AND minute >= 15 AND minute <= 25 AND activity = "exit");
-
-## Basic control
-- sqlite3 and then .open ??.db
-- sqlite3 ??.db
-In sqlite>  state
-- .help
-can see Usage for command-lines
-- .show
-Show the current values for various settings
-- .open ?OPTIONS? ?FILE?
-Close existing database and reopen FILE
-- .headers on|off  
-Turn display of headers on or off
