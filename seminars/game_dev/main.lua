@@ -73,7 +73,11 @@ function love.keypressed(key)
     end
 
     if key == 'enter' or key == 'return' then
-        gameState = 'play'
+        if gameState == 'title' then
+            gameState = 'serve'
+        elseif gameState == 'serve' then
+            gameState = 'play'
+        end
     end
 end
 
@@ -88,6 +92,11 @@ function love.draw()
         love.graphics.printf('Press Enter', 0, VIRTUAL_HEIGHT - 32, VIRTUAL_WIDTH, 'center')
     end
 
+    if gameState == 'serve' then
+        love.graphics.setFont(SMALL_FONT)
+        love.graphics.printf('Press Enter to Serve!', 0, 10, VIRTUAL_WIDTH, 'center')
+    end
+ 
     love.graphics.rectangle('fill', player1.x, player1.y, PADDLE_WIDTH, PADDLE_HEIGHT)
     love.graphics.rectangle('fill', player2.x, player2.y, PADDLE_WIDTH, PADDLE_HEIGHT)
     love.graphics.rectangle('fill', ball.x, ball.y, BALL_SIZE, BALL_SIZE)
