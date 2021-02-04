@@ -7,6 +7,8 @@ PADDLE_WIDTH = 8
 PADDLE_HEIGHT = 32
 PADDLE_SPEED = 140
 
+BALL_SIZE = 4
+
 push = require 'push'
 
 player1 = {
@@ -16,6 +18,11 @@ player1 = {
 player2 = {
     x = VIRTUAL_WIDTH - player1.x - PADDLE_WIDTH,
     y = VIRTUAL_HEIGHT - player1.y - PADDLE_HEIGHT   
+}
+
+ball = {
+    x = VIRTUAL_WIDTH / 2 - BALL_SIZE / 2,
+    y = VIRTUAL_HEIGHT / 2 - BALL_SIZE / 2
 }
 
 function love.load()
@@ -49,5 +56,6 @@ function love.draw()
     love.graphics.clear(40/255, 45/255, 52/255, 255/255)
     love.graphics.rectangle('fill', player1.x, player1.y, PADDLE_WIDTH, PADDLE_HEIGHT)
     love.graphics.rectangle('fill', player2.x, player2.y, PADDLE_WIDTH, PADDLE_HEIGHT)
+    love.graphics.rectangle('fill', ball.x, ball.y, BALL_SIZE, BALL_SIZE)
     push:finish()
 end
