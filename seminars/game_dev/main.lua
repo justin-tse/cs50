@@ -1,3 +1,53 @@
+VIRTUAL_WIDTH = 384
+VIRTUAL_HEIGHT = 216
+WINDOW_WIDTH = 1280
+WINDOW_HEIGHT = 720
+
+PADDLE_WIDTH = 8
+PADDLE_HEIGHT = 32
+PADDLE_SPEED = 140
+
+push = require 'push'
+
+player1 = {
+    x = 10, y =10    
+}
+
+player2 = {
+    x = VIRTUAL_WIDTH - player1.x - PADDLE_WIDTH,
+    y = VIRTUAL_HEIGHT - player1.y - PADDLE_HEIGHT   
+}
+
+function love.load()
+    love.graphics.setDefaultFilter('nearest', 'nearest')
+    push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT)
+end
+
+function love.update(dt)
+    if love.keyboard.isDown('w') then
+        player1.y = player1.y - PADDLE_SPEED * dt
+    elseif love.keyboard.isDown('s') then
+        player1.y = player1.y + PADDLE_SPEED * dt
+    end
+
+    if love.keyboard.isDown('i') then
+        player2.y = player2.y - PADDLE_SPEED * dt
+    elseif love.keyboard.isDown('k') then
+        player2.y = player2.y + PADDLE_SPEED * dt
+    end
+end
+
+-- use key to control the screen
+function love.keypressed(key)
+    if key == 'escape' then
+        love.event.quit()
+    end
+end
+
 function love.draw()
-    love.graphics.print('Hello, world!')
+    push:start()
+    love.graphics.clear(40/255, 45/255, 52/255, 255/255)
+    love.graphics.rectangle('fill', player1.x, player1.y, PADDLE_WIDTH, PADDLE_HEIGHT)
+    love.graphics.rectangle('fill', player2.x, player2.y, PADDLE_WIDTH, PADDLE_HEIGHT)
+    push:finish()
 end
