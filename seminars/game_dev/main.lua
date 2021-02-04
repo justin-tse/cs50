@@ -41,6 +41,7 @@ function love.load()
     if math.random(2) == 1 then
         ball.dx = -ball.dx
     end
+
     ball.dy = math.random(60)
     if math.random(2) == 1 then
         ball.dy = -ball.dy
@@ -66,14 +67,13 @@ function love.update(dt)
 
         if ball.x <= 0 then
             player2.score = player2.score + 1
-            ball.x = VIRTUAL_WIDTH / 2 - BALL_SIZE / 2
-            ball.y = VIRTUAL_HEIGHT / 2 - BALL_SIZE / 2
+            resetBall()
+            gameState = 'serve' 
         elseif ball.x >= VIRTUAL_WIDTH - BALL_SIZE then
             player1.score = player1.score + 1
-            ball.x = VIRTUAL_WIDTH / 2 - BALL_SIZE
-            ball.y = VIRTUAL_HEIGHT / 2 - BALL_SIZE / 2     
-        end
-        gameState = 'serve' 
+            resetBall()    
+            gameState = 'serve' 
+        end   
     end
 end
 
@@ -117,4 +117,19 @@ function love.draw()
     love.graphics.print(player2.score, VIRTUAL_WIDTH / 2 + 16, VIRTUAL_HEIGHT / 2 - 16)
     love.graphics.setFont(SMALL_FONT)
     push:finish()
+end
+
+function resetBall()
+    ball.x = VIRTUAL_WIDTH / 2 - BALL_SIZE / 2
+    ball.y = VIRTUAL_HEIGHT / 2 - BALL_SIZE / 2
+
+    ball.dx = 60 + math.random(60)
+    if math.random(2) == 1 then
+        ball.dx = -ball.dx
+    end
+    
+    ball.dy = 30 + math.random(60)
+    if math.random(2) == 1 then
+        ball.dy = -ball.dy
+    end
 end
