@@ -60,9 +60,20 @@ function love.update(dt)
         player2.y = player2.y + PADDLE_SPEED * dt
     end
 
-    if gameState == 'paly' then
+    if gameState == 'play' then
         ball.x = ball.x + ball.dx
         ball.y = ball.y + ball.dy
+
+        if ball.x <= 0 then
+            player2.score = player2.score + 1
+            ball.x = VIRTUAL_WIDTH / 2 - BALL_SIZE / 2
+            ball.y = VIRTUAL_HEIGHT / 2 - BALL_SIZE / 2
+        elseif ball.x >= VIRTUAL_WIDTH - BALL_SIZE then
+            player1.score = player1.score + 1
+            ball.x = VIRTUAL_WIDTH / 2 - BALL_SIZE
+            ball.y = VIRTUAL_HEIGHT / 2 - BALL_SIZE / 2     
+        end
+        gameState = 'serve' 
     end
 end
 
