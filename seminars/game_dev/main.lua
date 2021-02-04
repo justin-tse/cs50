@@ -12,7 +12,7 @@ BALL_SIZE = 4
 push = require 'push'
 
 LARGE_FONT = love.graphics.newFont(32)
-SMALL_FONT = love.graphics.newFont(18)
+SMALL_FONT = love.graphics.newFont(16)
 
 player1 = {
     x = 10, y =10, score = 0    
@@ -29,6 +29,8 @@ ball = {
     y = VIRTUAL_HEIGHT / 2 - BALL_SIZE / 2,
     dx = 0, dy = 0
 }
+
+gameState = 'title'
 
 function love.load()
     math.randomseed(os.time())
@@ -58,8 +60,10 @@ function love.update(dt)
         player2.y = player2.y + PADDLE_SPEED * dt
     end
 
-    ball.x = ball.x + ball.dx
-    ball.y = ball.y + ball.dy
+    if gameState == 'paly' then
+        ball.x = ball.x + ball.dx
+        ball.y = ball.y + ball.dy
+    end
 end
 
 -- use key to control the screen
@@ -72,6 +76,14 @@ end
 function love.draw()
     push:start()
     love.graphics.clear(40/255, 45/255, 52/255, 255/255)
+
+    if gameState == 'title' then
+        love.graphics.setFont(LARGE_FONT)
+        love.graphics.printf('Pre50 Pong', 0, 10, VIRTUAL_WIDTH, 'center')
+        love.graphics.setFont(SMALL_FONT)
+        love.graphics.printf('Press Enter', 0, VIRTUAL_HEIGHT - 32, VIRTUAL_WIDTH, 'center')
+    end
+
     love.graphics.rectangle('fill', player1.x, player1.y, PADDLE_WIDTH, PADDLE_HEIGHT)
     love.graphics.rectangle('fill', player2.x, player2.y, PADDLE_WIDTH, PADDLE_HEIGHT)
     love.graphics.rectangle('fill', ball.x, ball.y, BALL_SIZE, BALL_SIZE)
