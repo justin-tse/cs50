@@ -73,7 +73,13 @@ function love.update(dt)
             player1.score = player1.score + 1
             resetBall()    
             gameState = 'serve' 
-        end   
+        end
+        
+        if ball.y <= 0 then
+            ball.dy = - ball.dy
+        elseif ball.y >= VIRTUAL_HEIGHT - BALL_SIZE then
+            ball.dy = -ball.dy
+        end
     end
 end
 
