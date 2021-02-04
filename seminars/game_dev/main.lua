@@ -71,6 +71,10 @@ function love.keypressed(key)
     if key == 'escape' then
         love.event.quit()
     end
+
+    if key == 'enter' or key == 'return' then
+        gameState = 'play'
+    end
 end
 
 function love.draw()
