@@ -12,12 +12,13 @@ BALL_SIZE = 4
 push = require 'push'
 
 player1 = {
-    x = 10, y =10    
+    x = 10, y =10, score = 0    
 }
 
 player2 = {
     x = VIRTUAL_WIDTH - player1.x - PADDLE_WIDTH,
-    y = VIRTUAL_HEIGHT - player1.y - PADDLE_HEIGHT   
+    y = VIRTUAL_HEIGHT - player1.y - PADDLE_HEIGHT,
+    score =  0   
 }
 
 ball = {
@@ -53,6 +54,9 @@ function love.update(dt)
     elseif love.keyboard.isDown('down') then
         player2.y = player2.y + PADDLE_SPEED * dt
     end
+
+    ball.x = ball.x + ball.dx
+    ball.y = ball.y + ball.dy
 end
 
 -- use key to control the screen
