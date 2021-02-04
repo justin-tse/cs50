@@ -22,12 +22,23 @@ player2 = {
 
 ball = {
     x = VIRTUAL_WIDTH / 2 - BALL_SIZE / 2,
-    y = VIRTUAL_HEIGHT / 2 - BALL_SIZE / 2
+    y = VIRTUAL_HEIGHT / 2 - BALL_SIZE / 2,
+    dx = 0, dy = 0
 }
 
 function love.load()
+    math.randomseed(os.time())
     love.graphics.setDefaultFilter('nearest', 'nearest')
     push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT)
+
+    ball.dx = math.random(60)
+    if math.random(2) == 1 then
+        ball.dx = -ball.dx
+    end
+    ball.dy = math.random(60)
+    if math.random(2) == 1 then
+        ball.dy = -ball.dy
+    end
 end
 
 function love.update(dt)
