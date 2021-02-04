@@ -11,6 +11,9 @@ BALL_SIZE = 4
 
 push = require 'push'
 
+LARGE_FONT = love.graphics.newFont(32)
+SMALL_FONT = love.graphics.newFont(18)
+
 player1 = {
     x = 10, y =10, score = 0    
 }
@@ -72,5 +75,10 @@ function love.draw()
     love.graphics.rectangle('fill', player1.x, player1.y, PADDLE_WIDTH, PADDLE_HEIGHT)
     love.graphics.rectangle('fill', player2.x, player2.y, PADDLE_WIDTH, PADDLE_HEIGHT)
     love.graphics.rectangle('fill', ball.x, ball.y, BALL_SIZE, BALL_SIZE)
+        
+    love.graphics.setFont(LARGE_FONT)
+    love.graphics.print(player1.score, VIRTUAL_WIDTH / 2 - 36, VIRTUAL_HEIGHT / 2 - 16)
+    love.graphics.print(player2.score, VIRTUAL_WIDTH / 2 + 16, VIRTUAL_HEIGHT / 2 - 16)
+    love.graphics.setFont(SMALL_FONT)
     push:finish()
 end
