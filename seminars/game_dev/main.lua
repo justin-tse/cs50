@@ -76,9 +76,17 @@ function love.update(dt)
         end
         
         if ball.y <= 0 then
-            ball.dy = - ball.dy
+            ball.dy = - ball.dy * 0.05
         elseif ball.y >= VIRTUAL_HEIGHT - BALL_SIZE then
-            ball.dy = -ball.dy
+            ball.dy = -ball.dy * 0.05
+        end
+
+        if collides(player1, ball) then
+            ball.dx = -ball.dx
+            ball.x = player1.x + PADDLE_WIDTH
+        elseif collides(player2, ball) then
+            ball.dx = -ball.dx
+            ball.x = player2.x - BALL_SIZE
         end
     end
 end
@@ -123,6 +131,10 @@ function love.draw()
     love.graphics.print(player2.score, VIRTUAL_WIDTH / 2 + 16, VIRTUAL_HEIGHT / 2 - 16)
     love.graphics.setFont(SMALL_FONT)
     push:finish()
+end
+
+function collides(p, b)
+    return not (p.x > b.x + BALL_SIZE or p.y > b.y + BALL_SIZE or b.x > p.x + PADDLE_WIDTH or b.y > p.y + PADDLE_HEIGHT)
 end
 
 function resetBall()
